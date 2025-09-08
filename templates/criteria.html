@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/" class="back-button" aria-label="Back to Main Page">
+    ← Back to Main Page
+</a>
+<div class="max-w-7xl mx-auto space-y-12 text-gray-800">
+    <header class="text-center space-y-4">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-shadow-custom">💡 Project Viability Criteria</h1>
+    <p class="text-lg md:text-xl font-normal text-gray-500 max-w-3xl mx-auto">What are our expectations for viability with shifting manufacturing and tariffs?</p>
+    </header>
+
+    <main class="space-y-12">
+    <section>
+        <h2 class="text-2xl font-bold mb-6">Strategy Requirement</h2>
+        <div class="bg-white p-8 rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-sky-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 100 12h-3a7.5 7.5 0 000-12h3z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 18a7.5 7.5 0 000-12h3a7.5 7.5 0 000 12h-3z"></path>
+                </svg>
+                <div class="ml-6">
+                    <h3 class="text-xl font-bold text-slate-800">Is it better for Breville & Category?</h3>
+                    <p class="text-md text-gray-600 mt-1">The primary strategic test for any new project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-2xl font-bold mb-6">Financial Viability</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 3.75v16.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V3.75m-15 0h15"></path>
+                        </svg>
+                        <span class="ml-2">CM% Target</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-slate-800">43%</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Contribution margin goal for a standard viable project.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 3.75v16.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V3.75m-15 0h15"></path>
+                        </svg>
+                        <span class="ml-2">CM% Floor</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-amber-600">>25%</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">The absolute minimum contribution margin, regardless of other factors.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 3.75v16.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V3.75m-15 0h15"></path>
+                        </svg>
+                        <span class="ml-2">CM$ Growth</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-slate-800">Positive</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Must generate more absolute CM dollars than any product it replaces or cannibalizes.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008zm3-6h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm0 3h.008v.008H11.25v-.008zm3-6h.008v.008H14.25v-.008zm0 3h.008v.008H14.25v-.008zM4.5 3.75v16.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V3.75m-15 0h15"></path>
+                        </svg>
+                        <span class="ml-2">Category Average</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-slate-800">Beat It</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Should perform above the category average, unless there is a compelling strategic reason.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-2xl font-bold mb-6">Sourcing Viability (Ex-China)</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h8a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.881 4.045A9 9 0 0112 3c1.625 0 3.16.44 4.47 1.207m-8.94 0A9 9 0 0112 21c1.625 0 3.16-.44 4.47-1.207m-8.94 0L12 12m0 0l-4.119-7.955M12 12l4.119-7.955"></path>
+                        </svg>
+                        <span class="ml-2">240V Markets</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-slate-800">Standard</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">The financial viability criteria apply as normal for all 240V regions.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h8a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.881 4.045A9 9 0 0112 3c1.625 0 3.16.44 4.47 1.207m-8.94 0A9 9 0 0112 21c1.625 0 3.16-.44 4.47-1.207m-8.94 0L12 12m0 0l-4.119-7.955M12 12l4.119-7.955"></path>
+                        </svg>
+                        <span class="ml-2">120V Markets (USA)</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-amber-600">>25% CM</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">For the US market, we will accept a contribution margin above 25% after all tariffs are applied.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+                <div>
+                    <div class="flex items-center text-sm font-medium text-gray-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span class="ml-2">China Launches</span>
+                    </div>
+                    <p class="mt-2 text-5xl font-bold text-slate-800">Quote Shift</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">For any new project launching from China, a supplier quote for shifting manufacturing must be obtained.</p>
+            </div>
+        </div>
+    </section>
+    </main>
+</div>
+{% endblock %}

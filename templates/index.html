@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-16 text-gray-800">
+  <header class="text-center space-y-4">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 text-shadow-custom">Project Viability Guide</h1>
+    <p class="text-lg md:text-xl font-normal text-gray-500 max-w-2xl mx-auto">This guide helps you understand the Project Viability process and what you need to present to commercial operations.</p>
+  </header>
+
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
+    <section class="md:col-span-2 space-y-8">
+      <a href="/criteria" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">💡 Project Viability Criteria</h2>
+          <p class="text-lg text-gray-600">Guidance on what makes a project viable</p>
+        </div>
+      </a>
+      <a href="/gates" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">📦 Stage Gate Info</h2>
+          <p class="text-lg text-gray-600">What do I need to present at stage gates?</p>
+        </div>
+      </a>
+      <a href="/tools" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">📊 Viability Tools</h2>
+          <p class="text-lg text-gray-600">The key tools we use for calculations</p>
+        </div>
+      </a>
+      <a href="/assumptions" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">✅ Assumptions</h2>
+          <p class="text-lg text-gray-600">Key assumptions for business cases</p>
+        </div>
+      </a>
+      <a href="/reports" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">📈 Revenue Reports</h2>
+          <p class="text-lg text-gray-600">Reports that show how much money I'm making</p>
+        </div>
+      </a>
+      <a href="/tips" class="block cursor-pointer">
+        <div class="bg-white hover:bg-gray-50 transition-colors p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl font-extrabold flex items-center mb-2">📝 Team Tips</h2>
+          <p class="text-lg text-gray-600">Tips and tricks from my colleagues</p>
+        </div>
+      </a>
+    </section>
+
+    <aside class="md:col-span-1 p-8 bg-white rounded-xl shadow-lg h-fit sticky top-8">
+      <h2 class="text-2xl font-extrabold mb-4">🔗 Key Links</h2>
+      <ul class="space-y-2 text-lg text-gray-600">
+        <li><a href="#" class="hover:underline">Gartner & Market Data</a></li>
+        <li><a href="#" class="hover:underline">Latest Freight Costs</a></li>
+        <li><a href="#" class="hover:underline">5 Year Rolling File</a></li>
+        <li><a href="#" class="hover:underline">Business Case App</a></li>
+      </ul>
+    </aside>
+  </main>
+</div>
+{% endblock %}

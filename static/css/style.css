@@ -1,0 +1,50 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fcfcfc;
+}
+.text-shadow-custom {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.back-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background-color: #4B5563; /* Tailwind gray-600 */
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.back-button:hover {
+    background-color: #374151; /* Tailwind gray-700 */
+}
+.stage-card {
+    background-color: #f1f5f9; /* Tailwind slate-100 */
+    border-radius: 0.5rem; /* Tailwind rounded-lg */
+}
+.diamond-shape {
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto;
+}
+.diamond-text {
+    transform: rotate(-45deg);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.875rem; /* Tailwind text-sm */
+}
+.diamond-ideation { background-color: #cbcc00; }
+.diamond-commercial { background-color: #cb9900; }
+.diamond-tool-release { background-color: #fe6500; }
+.diamond-production { background-color: #fd0000; }
+.diamond-team-release { background-color: #c00000; }

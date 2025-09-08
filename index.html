@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Viability Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "react/": "https://aistudiocdn.com/react@^19.1.1/",
+          "react": "https://aistudiocdn.com/react@^19.1.1",
+          "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
+        }
+      }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+        }
+        .text-shadow-custom {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            background-color: #4B5563; /* Tailwind gray-600 */
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            pointer-events: none;
+        }
+        .back-button.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .stage-card {
+            background-color: #f1f5f9; /* Tailwind slate-100 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+        }
+        .diamond-shape {
+            width: 100px;
+            height: 100px;
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+        }
+        .diamond-text {
+            transform: rotate(-45deg);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+        }
+        .diamond-ideation { background-color: #cbcc00; }
+        .diamond-commercial { background-color: #cb9900; }
+        .diamond-tool-release { background-color: #fe6500; }
+        .diamond-production { background-color: #fd0000; }
+        .diamond-team-release { background-color: #c00000; }
+    </style>
+  </head>
+  <body class="p-8 md:p-16 text-gray-800">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
