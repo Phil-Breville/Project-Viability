@@ -7,6 +7,7 @@ interface AssumptionsPageProps {
 
 type Row = {
   component: string;
+  category: string;          // <-- used for zebra grouping
   definition: string;
   stageGate: string;
   keyAssumption: string;
@@ -20,9 +21,24 @@ const toBullets = (text: string) =>
     .map((s) => s.trim())
     .filter(Boolean);
 
+/* ------------------------------------------------------------------------------------------------
+   DATA  (categories define zebra blocks)
+   Zebra groups (in order), per your spec:
+
+   1) Volume
+   2) Retail Price (Local) + Retail Price Excl. GST/VAT (Local) + Retail Margin (Local)
+   3) Wholesale per Unit (Local) + Rebates (Local) + Net Sales per Unit (Local)
+   4) FOB (USD) + Contingency (USD) + FOB with Contingency (USD) + Freight In (Local) + Duty (Local)
+      (You listed "FOB (Local)" but it isn't in your data; leaving it out to match your dataset.)
+   5) Landed Cost per Unit (Local)
+   6) Gross Margin (Local) + Warranty Cost (%) + Freight Out (Local)
+   7) Contribution Margin per Unit (Local) + Contribution Margin %
+-------------------------------------------------------------------------------------------------- */
+
 const RAW_ROWS: Row[] = [
   {
     component: "Volume",
+    category: "Volume",
     definition:
       "Forecasted number of units expected to sell annually or over a defined time horizon, based on market size, pricing, channel presence, and historical data.",
     stageGate:
@@ -31,8 +47,11 @@ const RAW_ROWS: Row[] = [
       "Use category size + comparable benchmark products (by price/spec). Use PowerBI for historical market volumes (where available). Early + estimate; later + region + GTM workshop. Food Prep: Uses PowerBI portfolio averages; sometimes applies portfolio P&Ls for comparison. Needs Finance/Commercial to provide P&L by product per region. Cooking: 1. For kettles and toasters (mature categories), relies heavily on Stackline for Amazon sales data (represents ~50% of US sales). 2. Stackline is main source for sell-out data. 3. For mature categories, Stackline is sufficient; for new ones, external market data is still needed.",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 2
   {
     component: "Retail Price (Local)",
+    category: "Retail Price",
     definition:
       "The final price paid by consumers in the local market, inclusive of GST/VAT unless otherwise noted.",
     stageGate:
@@ -43,6 +62,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Retail Price Excluding GST/VAT (Local)",
+    category: "Retail Price",
     definition:
       "The consumer-facing retail price net of any local taxes (used for margin calculations).",
     stageGate: "Derived throughout process for calculations.",
@@ -51,6 +71,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Retail Margin (Local)",
+    category: "Retail Price",
     definition:
       "The difference between the retail price and wholesale price, expressed as a percentage of retail price.",
     stageGate:
@@ -59,8 +80,11 @@ const RAW_ROWS: Row[] = [
       "Coffee: Hold template margins until Commercial Go, adjust if replacing an existing product. Food Prep: Notes margin expectations differ by category (espresso vs cooking). Cooking: Always follows the template margins. Never adjusts unless regions raise an issue – strong view that CMs should not unilaterally change template margins.",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 3
   {
     component: "Wholesale per Unit (Local)",
+    category: "Wholesale & Net Sales",
     definition:
       "The price at which the product is sold from the company to the retailer or distributor, in AUD.",
     stageGate: "Auto-calculated in BC template.",
@@ -69,6 +93,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Rebates (Local)",
+    category: "Wholesale & Net Sales",
     definition:
       "Volume- or performance-based discounts or credits given back to the retailer/distributor after the sale.",
     stageGate: "Use BC template until Commercial Go & align with regions after.",
@@ -77,14 +102,18 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Net Sales per Unit (Local)",
+    category: "Wholesale & Net Sales",
     definition: "Wholesale price minus any rebates or discounts applied.",
     stageGate: "Auto-calculated. Used from Concept Go onwards.",
     keyAssumption:
       "Check against other models as cross-check (sanity check vs Lineup).",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 4
   {
     component: "FOB (USD)",
+    category: "FOB & Import",
     definition:
       "Free on board price — cost of the product at the point of origin, including shipping, in USD.",
     stageGate:
@@ -95,6 +124,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Contingency (USD)",
+    category: "FOB & Import",
     definition:
       "Additional buffer added to cover potential unexpected cost increases or risks (often <5-10%).",
     stageGate:
@@ -105,6 +135,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "FOB with Contingency (USD)",
+    category: "FOB & Import",
     definition: "FOB cost including the added contingency.",
     stageGate: "Derived at all gates.",
     keyAssumption:
@@ -113,6 +144,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Freight In (Local)",
+    category: "FOB & Import",
     definition:
       "Cost of transporting goods from the origin to the local warehouse, in local currency.",
     stageGate: "Required from Concept Go onwards.",
@@ -122,6 +154,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Duty (Local)",
+    category: "FOB & Import",
     definition:
       "Import tariffs or customs duties paid on the product when brought into the local warehouse.",
     stageGate: "Required from Concept Go onwards.",
@@ -129,8 +162,11 @@ const RAW_ROWS: Row[] = [
       "Use logistics (Joanne Mitzes for Mexico Freight). Use standardised freight splits (Torrance vs Winchester vs Mexican). Cooking: 1. Strongly supports ‘one source of truth’ for tariffs. 2. Asked: how do we model China vs non-China approaches? Wants clearer direction on how to combine or choose assumptions for duty scenarios.",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 5
   {
     component: "Landed Cost per Unit (Local)",
+    category: "Landed Cost",
     definition:
       "Total cost to get the product into the local warehouse — includes FOB (Local), freight, duty, and fees.",
     stageGate: "Auto-calculated in BC template.",
@@ -138,8 +174,11 @@ const RAW_ROWS: Row[] = [
       "Tariffs/duties from NICO’s spreadsheet. Needs one source of truth for duty assumptions (tariffs shift e.g. Trump).",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 6
   {
     component: "Gross Margin (Local)",
+    category: "Post-Landed Costs",
     definition:
       "Net sales minus landed cost, freight out, warranty and other variable costs (calculated in BC template).",
     stageGate: "Auto-calculated in BC template.",
@@ -148,6 +187,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Warranty Cost (%)",
+    category: "Post-Landed Costs",
     definition: "Estimated cost per unit to cover warranty claims or service.",
     stageGate:
       "From Project Go onwards (informed by Quality). Refined at later gates as testing progresses.",
@@ -157,14 +197,18 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Freight Out (Local)",
+    category: "Post-Landed Costs",
     definition:
       "Cost to ship product from the warehouse to the retailer or end customer.",
     stageGate: "BC template derived.",
     keyAssumption: "Based on BC assumptions; not CM-driven.",
     lastUpdated: "Aug 2025",
   },
+
+  // Group 7
   {
     component: "Contribution Margin per Unit (Local)",
+    category: "Contribution Margin",
     definition:
       "Profit per unit after subtracting all variable costs, including landed cost, freight out, and warranty.",
     stageGate: "Required at all gates.",
@@ -174,6 +218,7 @@ const RAW_ROWS: Row[] = [
   },
   {
     component: "Contribution Margin %",
+    category: "Contribution Margin",
     definition:
       "Contribution Margin per Unit as a percentage of Net Sales. (Net Sales - Variable Costs) / Net Sales.",
     stageGate: "Required at all gates.",
@@ -192,16 +237,38 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
     return () => clearTimeout(t);
   }, []);
 
-  const rows = useMemo(() => {
+  // Filter while preserving order
+  const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return RAW_ROWS;
     return RAW_ROWS.filter((r) =>
-      [r.component, r.definition, r.stageGate, r.keyAssumption, r.lastUpdated]
+      [r.component, r.definition, r.stageGate, r.keyAssumption, r.lastUpdated, r.category]
         .join(" ")
         .toLowerCase()
         .includes(term)
     );
   }, [q]);
+
+  // Build helpers to know when a row is the first in its category and
+  // to alternate zebra by category index.
+  const categoryOrder: string[] = [];
+  filtered.forEach((r) => {
+    if (!categoryOrder.includes(r.category)) categoryOrder.push(r.category);
+  });
+
+  const isFirstInCategory = (idx: number) => {
+    const row = filtered[idx];
+    if (!row) return false;
+    const prev = filtered[idx - 1];
+    return !prev || prev.category !== row.category;
+  };
+
+  const zebraBgFor = (idx: number) => {
+    const row = filtered[idx];
+    const catIdx = categoryOrder.indexOf(row.category);
+    // darker but readable: odd groups -> bg-gray-100; even -> bg-white
+    return catIdx % 2 === 0 ? "bg-gray-100" : "bg-white";
+  };
 
   return (
     <>
@@ -214,30 +281,48 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
       </button>
 
       <div className="max-w-6xl mx-auto space-y-6 text-gray-800 px-4">
+        {/* Header with emoji + gradient text (emoji keeps color) */}
         <header className="text-center space-y-3">
-          <h1 className="text-4xl md:text-5xl font-extrabold">✅ Assumptions</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold flex items-center justify-center gap-3">
+            <span className="text-4xl md:text-5xl leading-none">✅</span>
+            <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">
+              Assumptions
+            </span>
+          </h1>
+
           <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto">
             Key assumptions for business cases.
           </p>
-          <div className="inline-flex items-center gap-3">
-            <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600 border">
-              Updated Aug 2025
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <span className="inline-flex items-center gap-2 text-xs px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200">
+              <span aria-hidden>🕒</span> Updated Aug 2025
             </span>
+
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search components or text…"
-              className="w-64 md:w-80 rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="w-64 md:w-80 rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              aria-label="Search assumptions"
             />
+
+            <button
+              onClick={() => downloadCSV(filtered)}
+              className="inline-flex items-center gap-2 text-sm rounded-xl border px-3 py-2 hover:bg-gray-50 active:scale-[0.99] transition"
+              aria-label="Download table as CSV"
+            >
+              <span aria-hidden>📥</span> Download CSV
+            </button>
           </div>
         </header>
 
         <main className="text-gray-700">
-          <div className="relative overflow-x-auto rounded-lg shadow-lg">
+          <div className="relative overflow-x-auto rounded-xl shadow-lg ring-1 ring-gray-200 bg-white">
             <table className="min-w-full text-left">
-              <thead className="bg-gray-100 sticky top-0 z-10">
-                <tr>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-44 sticky left-0 bg-gray-100">
+              <thead className="sticky top-0 z-10">
+                <tr className="bg-gradient-to-r from-gray-100 to-gray-200">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-44 sticky left-0 bg-gradient-to-r from-gray-100 to-gray-200">
                     Components
                   </th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-[28rem]">
@@ -254,37 +339,63 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
-                {rows.map((row, i) => (
-                  <tr key={i} className="align-top hover:bg-gray-50">
-                    <td className="px-4 py-4 font-medium text-gray-900 sticky left-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-                      {row.component}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
-                      <div className="max-h-28 overflow-auto pr-2 leading-relaxed">
-                        {row.definition}
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
-                      <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
-                        {toBullets(row.stageGate).map((item, j) => (
-                          <li key={j}>{item}</li>
-                        ))}
-                      </ul>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
-                      <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
-                        {toBullets(row.keyAssumption).map((item, j) => (
-                          <li key={j}>{item}</li>
-                        ))}
-                      </ul>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                      {row.lastUpdated}
-                    </td>
-                  </tr>
-                ))}
-                {rows.length === 0 && (
+
+              <tbody className="divide-y divide-gray-200">
+                {filtered.map((row, i) => {
+                  const zebra = zebraBgFor(i);
+                  const isFirst = isFirstInCategory(i);
+
+                  // For sticky first column, we need the same bg as the row to avoid seam
+                  const stickyCellBg =
+                    zebra === "bg-gray-100"
+                      ? "bg-gray-100"
+                      : "bg-white";
+
+
+                  return (
+                    <tr
+                      key={`${row.component}-${i}`}
+                      className={`${zebra} align-top hover:bg-indigo-50/30 transition-colors`}
+                    >
+                      <td
+                        className={`px-4 py-4 sticky left-0 ${stickyCellBg} backdrop-blur supports-[backdrop-filter]:bg-opacity-95 ${
+                          isFirst ? "font-semibold text-gray-900" : "text-gray-900"
+                          }`}
+                      >   
+                        {row.component}
+                      </td>
+
+
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        <div className="max-h-28 overflow-auto pr-2 leading-relaxed">
+                          {row.definition}
+                        </div>
+                      </td>
+
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
+                          {toBullets(row.stageGate).map((item, j) => (
+                            <li key={j}>{item}</li>
+                          ))}
+                        </ul>
+                      </td>
+
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
+                          {toBullets(row.keyAssumption).map((item, j) => (
+                            <li key={j}>{item}</li>
+                          ))}
+                        </ul>
+                      </td>
+
+                      <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
+                        {row.lastUpdated}
+                      </td>
+                    </tr>
+                  );
+                })}
+
+                {filtered.length === 0 && (
                   <tr>
                     <td
                       colSpan={5}
@@ -304,3 +415,36 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
 };
 
 export default AssumptionsPage;
+
+/* ---------- CSV export helper ---------- */
+function downloadCSV(rows: Row[]) {
+  const esc = (s: string) => `"${s.replace(/"/g, '""')}"`;
+  const header = [
+    "Component",
+    "Category",
+    "Definition",
+    "Stage Gate",
+    "Key Assumption",
+    "Last Updated",
+  ];
+  const lines = [
+    header.join(","),
+    ...rows.map((r) =>
+      [
+        r.component,
+        r.category,
+        r.definition,
+        toBullets(r.stageGate).join(" • "),
+        toBullets(r.keyAssumption).join(" • "),
+        r.lastUpdated,
+      ]
+        .map(esc)
+        .join(",")
+    ),
+  ];
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "assumptions.csv";
+  a.click();
+}
