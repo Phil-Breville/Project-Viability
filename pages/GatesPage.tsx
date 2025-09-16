@@ -25,7 +25,7 @@ const link = (href: string, text: string) => (
 );
 
 // ------------------------------------------------------------------
-// DATA (put real SharePoint/Confluence URLs instead of "#")
+// DATA (put real URLs instead of "#")
 // ------------------------------------------------------------------
 const GATE_STAGES: Stage[] = [
   {
