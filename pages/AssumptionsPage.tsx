@@ -44,7 +44,7 @@ const RAW_ROWS: Row[] = [
     stageGate:
       "From Concept Go onwards: refine through each stage. After Project Go: align with regions. By Commercial Go: align 8-10 weeks ahead with GTM & regions.",
     keyAssumption:
-      "Use category size + comparable benchmark products (by price/spec). Use PowerBI for historical market volumes (where available). Early + estimate; later + region + GTM workshop. Food Prep: Uses PowerBI portfolio averages; sometimes applies portfolio P&Ls for comparison. Needs Finance/Commercial to provide P&L by product per region. Cooking: 1. For kettles and toasters (mature categories), relies heavily on Stackline for Amazon sales data (represents ~50% of US sales). 2. Stackline is main source for sell-out data. 3. For mature categories, Stackline is sufficient; for new ones, external market data is still needed.",
+      "Use category size + comparable benchmark products (by price/spec). Use PowerBI for historical market volumes (where available). Early = estimate, Later = region + GTM workshop. Food Prep: Uses PowerBI portfolio averages, sometimes applies portfolio P&Ls for comparison. Needs Finance/Commercial to provide P&L by product per region. Cooking:; 1. For kettles and toasters (mature categories), relies heavily on Stackline for Amazon sales data (represents ~50% of US sales). 2. Stackline is main source for sell-out data. 3. For mature categories, Stackline is sufficient - for new ones, external market data is still needed.",
     lastUpdated: "Aug 2025",
   },
 
@@ -57,7 +57,7 @@ const RAW_ROWS: Row[] = [
     stageGate:
       "From Concept Go: estimate based on roadmap & market gap, usually in USD. Dynamic through development. At Project Go: align with Pricing Strategy Manager. By Commercial Go: aligned with regions 8-10 weeks before.",
     keyAssumption:
-      "Early + roadmap + competitor gaps. Post-Project Go + RRP tied to FOB/CM% assumptions + competitor set. Regional RRPs set by Pricing Strategy Manager. Consider psychological price points ($99.9 etc.) and promo cycles (Stackline, Competera, CamelCamelCamel, JfK). Food Prep: Similar, but notes category-dependent retail price sensitivities. Cooking: 1. In addition to roadmap/competitor gaps, also does consumer pricing research/tests. 2. Reinforces that pricing is validated not just against competitors but with direct consumer response.",
+      "Early + roadmap + competitor gaps. Post-Project Go + RRP tied to FOB/CM% assumptions + competitor set. Regional RRPs set by Pricing Strategy Manager. Consider psychological price points ($999 etc) and promo cycles (Stackline, Competera, CamelCamelCamel, JfK). Food Prep: Similar, but notes category-dependent retail price sensitivities. Cooking:; 1. In addition to roadmap/competitor gaps, also does consumer pricing research/tests. 2. Reinforces that pricing is validated not just against competitors but with direct consumer response.",
     lastUpdated: "Aug 2025",
   },
   {
@@ -119,7 +119,7 @@ const RAW_ROWS: Row[] = [
     stageGate:
       "Project estimates or internal tastings. Commercial Go: factory quotes. Tool Release: <95% resolution (still can change).",
     keyAssumption:
-      "FOB from template may separate into 3 buckets (base FOB, factory move up/it e.g. +20% Mexico, then Contingency). Cooking: Works backward from target RRP < -43% CM. Aligns with your table but emphasizes this is Tom’s default assumption method.",
+      "FOB from template may separate into 3 buckets (base FOB, factory move uplift eg +20% Mexico, then Contingency). Cooking: Works backward from target RRP -> 43% CM. Aligns with your table but emphasizes this is Tom’s default assumption method.",
     lastUpdated: "Aug 2025",
   },
   {
@@ -159,7 +159,7 @@ const RAW_ROWS: Row[] = [
       "Import tariffs or customs duties paid on the product when brought into the local warehouse.",
     stageGate: "Required from Concept Go onwards.",
     keyAssumption:
-      "Use logistics (Joanne Mitzes for Mexico Freight). Use standardised freight splits (Torrance vs Winchester vs Mexican). Cooking: 1. Strongly supports ‘one source of truth’ for tariffs. 2. Asked: how do we model China vs non-China approaches? Wants clearer direction on how to combine or choose assumptions for duty scenarios.",
+      "Use logistics (Joanne Metzke for Mexico Freight). Use standardised freight splits (Torrance vs Winchester vs Mexican). Cooking: 1. Strongly supports ‘one source of truth’ for tariffs. 2. Asked: how do we model China vs non-China approaches? Wants clearer direction on how to combine or choose assumptions for duty scenarios.",
     lastUpdated: "Aug 2025",
   },
 
@@ -171,7 +171,7 @@ const RAW_ROWS: Row[] = [
       "Total cost to get the product into the local warehouse — includes FOB (Local), freight, duty, and fees.",
     stageGate: "Auto-calculated in BC template.",
     keyAssumption:
-      "Tariffs/duties from NICO’s spreadsheet. Needs one source of truth for duty assumptions (tariffs shift e.g. Trump).",
+      "Tariffs/duties from NICO’s spreadsheet. Needs one source of truth for duty assumptions (tariffs shift eg Trump).",
     lastUpdated: "Aug 2025",
   },
 
@@ -280,7 +280,7 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
         ← Back to Main Page
       </button>
 
-      <div className="max-w-6xl mx-auto space-y-6 text-gray-800 px-4">
+      <div className="max-w-7xl mx-auto space-y-6 text-gray-800 px-4">
         {/* Header with emoji + gradient text (emoji keeps color) */}
         <header className="text-center space-y-3">
           <h1 className="text-4xl md:text-5xl font-extrabold flex items-center justify-center gap-3">
@@ -294,7 +294,40 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
             Key assumptions for business cases.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          {/* 🔥 Hot Assumptions (Freight & Duties) */}
+          <div className="overflow-x-auto rounded-xl shadow-md ring-1 ring-gray-200 bg-white mt-6">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-gradient-to-r from-yellow-50 to-yellow-100">
+                <tr>
+                  <th className="px-4 py-2 font-semibold text-gray-700">Category</th>
+                  <th className="px-4 py-2 font-semibold text-gray-700">Latest Source</th>
+                  <th className="px-4 py-2 font-semibold text-gray-700">Last Updated</th>
+                  <th className="px-4 py-2 font-semibold text-gray-700">Notes</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr className="bg-white">
+                  <td className="px-4 py-2 font-medium text-gray-900">Freight</td>
+                  <td className="px-4 py-2 text-gray-600">Ops Team (Joanne)</td>
+                  <td className="px-4 py-2 text-gray-600">Awaiting confirmation</td>
+                  <td className="px-4 py-2 text-gray-600">
+                    FI (Freight In) + FO (Freight Out) are distinct values. Joanne to confirm refresh cycle & process.
+                  </td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-4 py-2 font-medium text-gray-900">Duties</td>
+                  <td className="px-4 py-2 text-gray-600">NICO’s Tariff Sheet</td>
+                  <td className="px-4 py-2 text-gray-600">Aug 2025</td>
+                  <td className="px-4 py-2 text-gray-600">
+                    One source of truth needed; tariffs shift (e.g. policy changes). Define owners & cadence.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Controls (badge + search + CSV) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
             <span className="inline-flex items-center gap-2 text-xs px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200">
               <span aria-hidden>🕒</span> Updated Aug 2025
             </span>
@@ -319,22 +352,22 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
 
         <main className="text-gray-700">
           <div className="relative overflow-x-auto rounded-xl shadow-lg ring-1 ring-gray-200 bg-white">
-            <table className="min-w-full text-left">
+            <table className="min-w-[1200px] w-full text-left">
               <thead className="sticky top-0 z-10">
                 <tr className="bg-gradient-to-r from-gray-100 to-gray-200">
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-44 sticky left-0 bg-gradient-to-r from-gray-100 to-gray-200">
                     Components
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-[28rem]">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
                     Definition
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-[28rem]">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
                     What to do by which stage gate
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-[36rem]">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
                     Key Assumption to use
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider w-28">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
                     Last Updated
                   </th>
                 </tr>
@@ -347,10 +380,7 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
 
                   // For sticky first column, we need the same bg as the row to avoid seam
                   const stickyCellBg =
-                    zebra === "bg-gray-100"
-                      ? "bg-gray-100"
-                      : "bg-white";
-
+                    zebra === "bg-gray-100" ? "bg-gray-100" : "bg-white";
 
                   return (
                     <tr
@@ -360,20 +390,19 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
                       <td
                         className={`px-4 py-4 sticky left-0 ${stickyCellBg} backdrop-blur supports-[backdrop-filter]:bg-opacity-95 ${
                           isFirst ? "font-semibold text-gray-900" : "text-gray-900"
-                          }`}
-                      >   
+                        }`}
+                      >
                         {row.component}
                       </td>
 
-
                       <td className="px-4 py-4 text-sm text-gray-600">
-                        <div className="max-h-28 overflow-auto pr-2 leading-relaxed">
+                        <div className="leading-relaxed">
                           {row.definition}
                         </div>
                       </td>
 
                       <td className="px-4 py-4 text-sm text-gray-600">
-                        <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
+                        <ul className="list-disc list-inside space-y-1 leading-relaxed">
                           {toBullets(row.stageGate).map((item, j) => (
                             <li key={j}>{item}</li>
                           ))}
@@ -381,7 +410,7 @@ const AssumptionsPage: React.FC<AssumptionsPageProps> = ({ navigateTo }) => {
                       </td>
 
                       <td className="px-4 py-4 text-sm text-gray-600">
-                        <ul className="list-disc list-inside space-y-1 max-h-28 overflow-auto pr-2 leading-relaxed">
+                        <ul className="list-disc list-inside space-y-1 leading-relaxed">
                           {toBullets(row.keyAssumption).map((item, j) => (
                             <li key={j}>{item}</li>
                           ))}
